@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Road Rash — Switch NRO Builder</title>
+    <link rel="icon" type="image/jpeg" href="icon.jpg">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="shell">
+        <header class="hero">
+            <img src="icon.jpg" alt="Road Rash" class="hero-icon">
+            <div class="hero-copy">
+                <div class="hero-badges">
+                    <span class="pill pill-accent">Nintendo Switch Homebrew</span>
+                    <span class="pill">100% Client-Side • No Upload</span>
+                </div>
+                <h1>Road Rash — Switch NRO Builder</h1>
+                <p>Drop your original 1996 Road Rash PC CD image (<code>.iso</code>, <code>.mdf</code>, <code>.bin</code>/<code>.cue</code>, or CD folder) to build a self-contained <code>roadrash_switch.nro</code> right in your browser.</p>
+            </div>
+        </header>
+
+        <section class="card">
+            <div class="card-head">
+                <span class="step-title">1. Original Road Rash PC Disc</span>
+                <span id="formatBadge" class="pill hidden"></span>
+            </div>
+
+            <div id="dropZone" class="drop-zone" tabindex="0">
+                <div class="drop-icon">CD</div>
+                <div class="drop-text">
+                    <strong>Drag &amp; drop your disc image or folder here</strong>
+                    <span>Supports <code>.iso</code>, <code>.mdf</code>, <code>.bin</code> (+<code>.cue</code>), <code>.img</code>, or an extracted PC CD folder</span>
+                </div>
+                <div class="drop-actions">
+                    <button id="pickFileBtn" type="button" class="btn btn-secondary">Browse Image...</button>
+                    <button id="pickFolderBtn" type="button" class="btn btn-secondary">Browse Folder...</button>
+                </div>
+            </div>
+
+            <input id="fileInput" type="file" multiple accept=".iso,.mdf,.bin,.cue,.img,.mds" class="hidden">
+            <input id="folderInput" type="file" webkitdirectory directory multiple class="hidden">
+        </section>
+
+        <section id="statusCard" class="card status-card">
+            <div id="statusTitle" class="status-title">Waiting for disc image</div>
+            <div id="statusDetail" class="status-detail">
+                Select your authentic 1996 PC CD image or folder to verify game files and <code>ROADRASH.EXE</code> before building.
+            </div>
+        </section>
+
+        <section id="baseFallbackCard" class="card status-card status-warn hidden">
+            <div class="status-title">Base binary could not be auto-fetched</div>
+            <div class="status-detail">
+                If you opened <code>index.html</code> directly from <code>file://</code>, select <code>roadrash_base.nro</code> manually or host this folder via GitHub Pages / local HTTP server.
+                <div style="margin-top: 10px;">
+                    <button id="pickBaseBtn" type="button" class="btn btn-secondary">Select roadrash_base.nro...</button>
+                    <input id="baseInput" type="file" accept=".nro" class="hidden">
+                </div>
+            </div>
+        </section>
+
+        <section class="card">
+            <div class="card-head">
+                <span class="step-title">2. Build Progress &amp; Log</span>
+                <span id="baseStatus" class="muted">Checking engine binary...</span>
+            </div>
+
+            <div class="progress-row">
+                <span id="progressLabel">Ready</span>
+                <span id="progressPct" class="muted">0%</span>
+            </div>
+            <div class="progress-track">
+                <div id="progressFill" class="progress-fill" style="width: 0%"></div>
+            </div>
+
+            <pre id="logBox" class="log-box"></pre>
+
+            <div class="footer-actions">
+                <span class="hint">Copy output to <code>sdmc:/switch/roadrash/roadrash_switch.nro</code> or open in Ryujinx.</span>
+                <div class="btn-group">
+                    <button id="cancelBtn" type="button" class="btn btn-secondary hidden">Cancel</button>
+                    <button id="buildBtn" type="button" class="btn btn-primary" disabled>Build Switch .NRO</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script type="module" src="app.js"></script>
+</body>
+</html>
